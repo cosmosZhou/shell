@@ -38,9 +38,6 @@ for arg in $*; do
             pycache)
                 pycache=1
                 ;;
-            restart)
-                restart=1
-                ;;
             stop)
                 stop=1
                 ;;
@@ -69,12 +66,10 @@ if [ -n "$pycache" ]; then
 fi
 
 #start httpd server
-if [ -n "$restart" ]; then
-    echo $pwd/httpd/bin/apachectl -k restart
-	$pwd/httpd/bin/apachectl -k restart
-fi
-
 if [ -n "$stop" ]; then
     echo $pwd/httpd/bin/apachectl -k stop
 	$pwd/httpd/bin/apachectl -k stop
+else
+    echo $pwd/httpd/bin/apachectl -k restart
+	$pwd/httpd/bin/apachectl -k restart
 fi
