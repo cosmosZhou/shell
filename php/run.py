@@ -2,8 +2,6 @@ import sys
 import os
 import re
 
-conf = get_conf_file()
-    
 def get_conf_file():
     pwd = os.path.dirname(__file__)
     pwd = os.path.dirname(pwd)
@@ -11,6 +9,8 @@ def get_conf_file():
     conf = pwd + '/httpd/conf/httpd.conf'
     print('conf =', conf)
     return conf
+
+conf = get_conf_file()
 
 def subs_dir_module():
      
