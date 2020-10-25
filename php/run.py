@@ -30,9 +30,9 @@ def subs_document_root(DocumentRoot):
             
             if line.strip():
                 lines.append(line)
-    write_conf(lines)
+    write_conf(conf, lines)
 
-def write_conf(lines):
+def write_conf(conf, lines):
     with open(conf, 'w') as file:
         for line in lines:
             print(line, end='', file=file)
@@ -59,7 +59,7 @@ def alter_pycache_permission():
             if line.strip():
                 lines.append(line)
     lines.append(pycache_settings)
-    write_conf(lines)
+    write_conf(conf, lines)
     
 if __name__ == '__main__':
     cmd, *args = sys.argv[1:]
