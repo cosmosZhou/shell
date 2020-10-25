@@ -20,12 +20,12 @@ ifeq ($(wildcard php-$(php_version)), $(nullstring))
 	tar -zxvf php-$(php_version).tar.gz
 endif
 #skip compiling
-ifeq ($(wildcard $(pwd)/php), $(nullstring)) 
+#ifeq ($(wildcard $(pwd)/php), $(nullstring)) 
 	cd php-$(php_version);\
 	./configure --prefix=$(pwd)/php --with-apxs2=$(pwd)/httpd/bin/apxs --with-config-file-path=$(pwd)/php/etc;\
 	make && make install;\
 	cd ../
-endif	
+#endif	
 
 apr_version =1.7.0
 apr:
@@ -38,12 +38,12 @@ ifeq ($(wildcard apr-$(apr_version)), $(nullstring))
 	tar -zxvf apr-$(apr_version).tar.gz
 endif
 #skip compiling
-ifeq ($(wildcard $(pwd)/apr), $(nullstring))
+#ifeq ($(wildcard $(pwd)/apr), $(nullstring))
 	cd apr-$(apr_version);\
 	./configure --prefix=$(pwd)/apr;\
 	make && make install;\
 	cd ../
-endif
+#endif
 
 expat_version =	2.0.1
 expat:
@@ -54,12 +54,12 @@ endif
 ifeq ($(wildcard expat-$(expat_version)), $(nullstring))
 	tar -zxvf expat_$(expat_version).orig.tar.gz
 endif
-ifeq ($(wildcard $(pwd)/expat), $(nullstring))
+#ifeq ($(wildcard $(pwd)/expat), $(nullstring))
 	cd expat-$(expat_version);\
 	./configure --prefix=$(pwd)/expat;\
 	make && make install;\
 	cd ../
-endif 
+#endif 
 	
 apr_util_version =1.6.1
 apr-util: apr expat
@@ -69,12 +69,12 @@ endif
 ifeq ($(wildcard apr-util-$(apr_util_version)), $(nullstring))
 	tar -zxvf apr-util-$(apr_util_version).tar.gz
 endif
-ifeq ($(wildcard $(pwd)/apr-util), $(nullstring))
+#ifeq ($(wildcard $(pwd)/apr-util), $(nullstring))
 	cd apr-util-$(apr_util_version);\
 	./configure --prefix=$(pwd)/apr-util --with-apr=$(pwd)/apr --with-expat=$(pwd)/expat;\
 	make && make install;\
 	cd ../
-endif 	
+#endif 	
 	
 pcre_version =8.40
 pcre:
@@ -84,12 +84,12 @@ endif
 ifeq ($(wildcard pcre-$(pcre_version)), $(nullstring))
 	tar -zxvf pcre-$(pcre_version).tar.gz
 endif
-ifeq ($(wildcard $(pwd)/pcre), $(nullstring))
+#ifeq ($(wildcard $(pwd)/pcre), $(nullstring))
 	cd pcre-$(pcre_version);\
 	./configure --prefix=$(pwd)/pcre;\
 	make && make install;\
 	cd ../
-endif	
+#endif	
 	
 httpd_version =2.4.46
 httpd: apr apr-util pcre
@@ -102,11 +102,11 @@ endif
 ifeq ($(wildcard httpd-$(httpd_version)), $(nullstring))
 	tar -zxvf httpd-$(httpd_version).tar.gz
 endif
-ifeq ($(wildcard $(pwd)/httpd), $(nullstring))
+#ifeq ($(wildcard $(pwd)/httpd), $(nullstring))
 	cd httpd-$(httpd_version);\
 	./configure --prefix=$(pwd)/httpd --with-apr=$(pwd)/apr --with-apr-util=$(pwd)/apr-util --with-pcre=$(pwd)/pcre --with-expat=$(pwd)/expat;\
 	make && make install;\
 	cd ../
-endif
+#endif
 	
 	sed -i '/<IfModule mime_module>/a    AddType application/x-httpd-php .php' $(pwd)/httpd/conf/httpd.conf
