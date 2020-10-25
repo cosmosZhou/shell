@@ -1,16 +1,17 @@
 import sys
 import os
 import re
-
-pwd = os.path.dirname(__file__)
-pwd = os.path.dirname(pwd)
-pwd = os.path.dirname(pwd)
-conf = pwd + '/httpd/conf/httpd.conf'
-print('conf =', conf)
-
     
-def subs_document_root(DocumentRoot):
-    
+def get_conf_file(pwd):
+    pwd = os.path.dirname(__file__)
+    pwd = os.path.dirname(pwd)
+    pwd = os.path.dirname(pwd)
+    conf = pwd + '/httpd/conf/httpd.conf'
+    print('conf =', conf)
+    return conf
+        
+def subs_document_root(pwd, DocumentRoot):    
+    conf = get_conf_file(pwd)
     print('DocumentRoot =', DocumentRoot)
     
     lines = []
@@ -36,7 +37,8 @@ def write_conf(lines):
         for line in lines:
             print(line, end='', file=file)
     
-def alter_pycache_permission():
+def alter_pycache_permission(pwd):
+    conf = get_conf_file(pwd)
     pycache_settings = """\
 <Files ~ ".py|.pyc|.gitignore">
     Order allow,deny
