@@ -21,15 +21,15 @@ def subs_document_root(DocumentRoot):
             if lineBeforeDetected:
                 print(line)
                 lineBeforeDetected = False
-                line = '<Directory "%s">' % DocumentRoot
+                line = '<Directory "%s">\n' % DocumentRoot
                                 
             elif re.compile('^DocumentRoot').match(line):
                 print(line)
                 lineBeforeDetected = True
-                line = 'DocumentRoot "%s"' % DocumentRoot
+                line = 'DocumentRoot "%s"\n' % DocumentRoot
             
-            if line.strip():
-                lines.append(line)
+#             if line.strip():
+            lines.append(line)
     write_conf(conf, lines)
 
 def write_conf(conf, lines):
@@ -56,8 +56,8 @@ def alter_pycache_permission():
         for line in file:             
             if re.compile('<Directory ~ "__pycache__">').match(line):
                 return
-            if line.strip():
-                lines.append(line)
+#             if line.strip():
+            lines.append(line)
     lines.append(pycache_settings)
     write_conf(conf, lines)
     
