@@ -1,6 +1,6 @@
 #!/bin/bash
 # usage:
-# sh start.sh port=7000 pycache DocumentRoot=/home/zhoulizhi/solution
+# sh start.sh port=7000 pycache dir_module DocumentRoot=/home/zhoulizhi/solution
   
 folder=$(dirname $(readlink -f $0))  
 if [ -z "$pwd" ]; then	  
@@ -27,9 +27,6 @@ for arg in $*; do
             DocumentRoot)
                 DocumentRoot=$value
                 ;;
-            pycache)
-                pycache=$value
-                ;;
             *)
                 echo illegal parameter: $key
         esac
@@ -41,6 +38,9 @@ for arg in $*; do
             stop)
                 stop=1
                 ;;
+            dir_module)
+                dir_module=1
+                ;;                
             *)
                 echo illegal parameter: $key
         esac    
@@ -63,6 +63,10 @@ fi
          
 if [ -n "$pycache" ]; then
     python $folder"/run.py" alter_pycache_permission
+fi
+
+if [ -n "$dir_module" ]; then
+    python $folder"/run.py" subs_dir_module
 fi
 
 #start httpd server

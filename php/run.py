@@ -23,16 +23,15 @@ def subs_dir_module():
     write_conf(lines)
     
 def scan_conf(regex):
-    num = -1
-    next_line = None
-    
+    num = -1    
     with open(conf, 'r') as file:
         lines = [*file]
-        for i, line in enumerate(lines):             
-            if re.compile(regex).match(line):
-                print(line)
-                num = i
-                break
+        
+    for i, line in enumerate(lines):             
+        if re.compile(regex).match(line):
+            print(line)
+            num = i
+            break
     return lines, num
         
 def subs_port(port):
