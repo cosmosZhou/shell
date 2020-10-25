@@ -109,4 +109,5 @@ endif
 	cd ../
 #endif
 	
-	sed -i '/<IfModule mime_module>/a    AddType application/x-httpd-php .php' $(pwd)/httpd/conf/httpd.conf
+	sed -i '/<IfModule mime_module>/a\tAddType application/x-httpd-php .php' $(pwd)/httpd/conf/httpd.conf
+#	sed -i "/ServerName www.example.com:80/aServerName localhost:80" $(pwd)/httpd/conf/httpd.conf

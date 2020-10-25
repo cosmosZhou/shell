@@ -38,6 +38,12 @@ for arg in $*; do
             pycache)
                 pycache=1
                 ;;
+            restart)
+                restart=1
+                ;;
+            stop)
+                stop=1
+                ;;
             *)
                 echo illegal parameter: $key
         esac    
@@ -51,7 +57,7 @@ echo pycache = $pycache
 if [ -n "$port" ]; then
     echo sed -i 's/Listen \d+/Listen $port/' $pwd/httpd/conf/httpd.conf
     sed -i 's/Listen \d+/Listen $port/' $pwd/httpd/conf/httpd.conf
-    sed -i '/ServerName www.example.com:80/a\ServerName localhost:$(port)' $pwd/httpd/conf/httpd.conf
+    sed -i "/ServerName www.example.com:80/a\ServerName localhost:$port" $pwd/httpd/conf/httpd.conf
 fi
 
 if [ -n "$DocumentRoot" ]; then
@@ -63,5 +69,12 @@ if [ -n "$pycache" ]; then
 fi
 
 #start httpd server
-echo $pwd/httpd/bin/apachectl -k restart
-$pwd/httpd/bin/apachectl -k restart
+if [ -n "$restart" ]; then
+    echo $pwd/httpd/bin/apachectl -k restart
+	$pwd/httpd/bin/apachectl -k restart
+fi
+
+if [ -n "$stop" ]; then
+    echo $pwd/httpd/bin/apachectl -k stop
+	$pwd/httpd/bin/apachectl -k stop
+fi

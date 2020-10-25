@@ -10,6 +10,9 @@ def get_conf_file():
     print('conf =', conf)
     return conf
         
+def subs_port(port):
+    conf = get_conf_file()
+    
 def subs_document_root(DocumentRoot):    
     conf = get_conf_file()
     print('DocumentRoot =', DocumentRoot)
