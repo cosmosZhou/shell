@@ -1,0 +1,112 @@
+#useage: make port=7000
+
+nullstring :=#end of the line
+pwd =$(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))#pwd
+
+pwd := $(shell dirname $(pwd))
+pwd := $(shell dirname $(pwd))
+$(info pwd = $(pwd))
+
+
+skip_php = $(pwd)/php
+php_version =7.2.31
+php: httpd
+ifeq ($(wildcard php-$(php_version).tar.gz), $(nullstring))
+	#wget http://cn2.php.net/distributions/php-$(php_version).tar.gz
+	wget https://www.php.net/distributions/php-$(php_version).tar.gz
+endif
+
+ifeq ($(wildcard php-$(php_version)), $(nullstring))
+	tar -zxvf php-$(php_version).tar.gz
+endif
+#skip compiling
+ifeq ($(wildcard $(pwd)/php), $(nullstring)) 
+	cd php-$(php_version);\
+	./configure --prefix=$(pwd)/php --with-apxs2=$(pwd)/httpd/bin/apxs --with-config-file-path=$(pwd)/php/etc;\
+	make && make install;\
+	cd ../
+endif	
+
+apr_version =1.7.0
+apr:
+#skip wget
+ifeq ($(wildcard apr-$(apr_version).tar.gz), $(nullstring))
+	wget https://mirror.bit.edu.cn/apache//apr/apr-$(apr_version).tar.gz
+endif
+#skip untar
+ifeq ($(wildcard apr-$(apr_version)), $(nullstring))
+	tar -zxvf apr-$(apr_version).tar.gz
+endif
+#skip compiling
+ifeq ($(wildcard $(pwd)/apr), $(nullstring))
+	cd apr-$(apr_version);\
+	./configure --prefix=$(pwd)/apr;\
+	make && make install;\
+	cd ../
+endif
+
+expat_version =	2.0.1
+expat:
+#https://launchpad.net/ubuntu/+source/expat/$(expat_version)-7.2ubuntu1.4
+ifeq ($(wildcard expat_$(expat_version).orig.tar.gz), $(nullstring))
+	wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/expat/$(expat_version)-7.2ubuntu1.4/expat_$(expat_version).orig.tar.gz
+endif
+ifeq ($(wildcard expat-$(expat_version)), $(nullstring))
+	tar -zxvf expat_$(expat_version).orig.tar.gz
+endif
+ifeq ($(wildcard $(pwd)/expat), $(nullstring))
+	cd expat-$(expat_version);\
+	./configure --prefix=$(pwd)/expat;\
+	make && make install;\
+	cd ../
+endif 
+	
+apr_util_version =1.6.1
+apr-util: apr expat
+ifeq ($(wildcard apr-util-$(apr_util_version).tar.gz), $(nullstring))
+	wget http://mirrors.gigenet.com/apache//apr/apr-util-$(apr_util_version).tar.gz
+endif
+ifeq ($(wildcard apr-util-$(apr_util_version)), $(nullstring))
+	tar -zxvf apr-util-$(apr_util_version).tar.gz
+endif
+ifeq ($(wildcard $(pwd)/apr-util), $(nullstring))
+	cd apr-util-$(apr_util_version);\
+	./configure --prefix=$(pwd)/apr-util --with-apr=$(pwd)/apr --with-expat=$(pwd)/expat;\
+	make && make install;\
+	cd ../
+endif 	
+	
+pcre_version =8.40
+pcre:
+ifeq ($(wildcard pcre-$(pcre_version).tar.gz), $(nullstring))
+	wget https://netix.dl.sourceforge.net/project/pcre/pcre/$(pcre_version)/pcre-$(pcre_version).tar.gz
+endif
+ifeq ($(wildcard pcre-$(pcre_version)), $(nullstring))
+	tar -zxvf pcre-$(pcre_version).tar.gz
+endif
+ifeq ($(wildcard $(pwd)/pcre), $(nullstring))
+	cd pcre-$(pcre_version);\
+	./configure --prefix=$(pwd)/pcre;\
+	make && make install;\
+	cd ../
+endif	
+	
+httpd_version =2.4.46
+httpd: apr apr-util pcre
+ifeq ($(wildcard httpd-$(httpd_version).tar.gz), $(nullstring))
+#	wget https://downloads.apache.org/httpd/httpd-$(httpd_version).tar.gz
+	wget https://mirror.bit.edu.cn/apache/httpd/httpd-$(httpd_version).tar.gz
+#	wget https://mirrors.bfsu.edu.cn/apache/httpd/httpd-$(httpd_version).tar.gz
+#	wget https://mirrors.tuna.tsinghua.edu.cn/apache/httpd/httpd-$(httpd_version).tar.gz
+endif
+ifeq ($(wildcard httpd-$(httpd_version)), $(nullstring))
+	tar -zxvf httpd-$(httpd_version).tar.gz
+endif
+ifeq ($(wildcard $(pwd)/httpd), $(nullstring))
+	cd httpd-$(httpd_version);\
+	./configure --prefix=$(pwd)/httpd --with-apr=$(pwd)/apr --with-apr-util=$(pwd)/apr-util --with-pcre=$(pwd)/pcre --with-expat=$(pwd)/expat;\
+	make && make install;\
+	cd ../
+endif
+	
+	sed -i '/<IfModule mime_module>/a    AddType application/x-httpd-php .php' $(pwd)/httpd/conf/httpd.conf
