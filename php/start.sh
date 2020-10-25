@@ -3,7 +3,7 @@
 # sh start.sh port=7000 pycache DocumentRoot=/home/zhoulizhi/solution
   
 folder=$(dirname $(readlink -f $0))  
-if [ -n "$pwd" ]; then	  
+if [ -z "$pwd" ]; then	  
 	pwd=$(dirname $(dirname $(dirname $(readlink -f $0))))
 fi
 
