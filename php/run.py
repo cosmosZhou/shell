@@ -1,6 +1,8 @@
 import sys
 import os
 import re
+
+conf = get_conf_file()
     
 def get_conf_file():
     pwd = os.path.dirname(__file__)
@@ -9,39 +11,57 @@ def get_conf_file():
     conf = pwd + '/httpd/conf/httpd.conf'
     print('conf =', conf)
     return conf
+
+def subs_dir_module():
+     
+# <IfModule dir_module>
+#     DirectoryIndex index.php index.html
+# </IfModule>
+
+    lines, num = scan_conf("<IfModule dir_module>")
+    lines[num + 1] = "    DirectoryIndex index.php index.html"
+    write_conf(lines)
+    
+def scan_conf(regex):
+    num = -1
+    next_line = None
+    
+    with open(conf, 'r') as file:
+        lines = [*file]
+        for i, line in enumerate(lines):             
+            if re.compile(regex).match(line):
+                print(line)
+                num = i
+                break
+    return lines, num
         
 def subs_port(port):
-    conf = get_conf_file()
+    lines, numListen = scan_conf("^Listen")    
+    lines, posServerName = scan_conf("^ServerName localhost:\d+")
+    
+    if posServerName < 0:
+        lines, posServerName = scan_conf("^#ServerName \S+:\d+")
+        assert posServerName >= 0
+        
+    lines[numListen] = "Listen " + port
+    lines[posServerName] = "ServerName localhost: " + port
+    write_conf(lines)
+    
     
 def subs_document_root(DocumentRoot):    
-    conf = get_conf_file()
     print('DocumentRoot =', DocumentRoot)
     
-    lines = []
-    with open(conf, 'r') as file:
-        lineBeforeDetected = False
-        for line in file:             
-            if lineBeforeDetected:
-                print(line)
-                lineBeforeDetected = False
-                line = '<Directory "%s">\n' % DocumentRoot
-                                
-            elif re.compile('^DocumentRoot').match(line):
-                print(line)
-                lineBeforeDetected = True
-                line = 'DocumentRoot "%s"\n' % DocumentRoot
-            
-#             if line.strip():
-            lines.append(line)
-    write_conf(conf, lines)
+    lines, num = scan_conf("^DocumentRoot")
+    lines[num] = 'DocumentRoot "%s"\n' % DocumentRoot
+    lines[num + 1] = '<Directory "%s">\n' % DocumentRoot
+    write_conf(lines)
 
-def write_conf(conf, lines):
+def write_conf(lines):
     with open(conf, 'w') as file:
         for line in lines:
             print(line, end='', file=file)
     
 def alter_pycache_permission():
-    conf = get_conf_file()
     pycache_settings = """\
 <Files ~ ".py|.pyc|.gitignore">
     Order allow,deny
@@ -62,7 +82,7 @@ def alter_pycache_permission():
 #             if line.strip():
             lines.append(line)
     lines.append(pycache_settings)
-    write_conf(conf, lines)
+    write_conf(lines)
     
 if __name__ == '__main__':
     cmd, *args = sys.argv[1:]
