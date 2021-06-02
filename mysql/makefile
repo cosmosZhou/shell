@@ -32,3 +32,7 @@ stop:
 
 restart: stop
 	bin/mysqld_safe --defaults-file=$(pwd)/mysql/my.cnf --user=$(whoami) &		
+
+start:
+	bin/mysqld_safe --defaults-file=$(pwd)/mysql/my.cnf --user=$(whoami) &		
+	

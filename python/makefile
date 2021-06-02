@@ -47,7 +47,8 @@ endif
 	./configure --prefix=$(pwd)/sqlite3;\
 	make && make install;\
 	cd ../
-	#make LD_LIBRARY_PATH=$(pwd)/sqlite3/lib
+	
+	sh bash_profile.sh LD_LIBRARY_PATH=$(pwd)/sqlite3/lib
 	#find / -name _sqlite*.so
 	#cp /usr/lib/python3.6/lib-dynload/_sqlite3.cpython-36m-x86_64-linux-gnu.so $(pwd)/python3/lib/python3.6/lib-dynload/_sqlite3.so
 	

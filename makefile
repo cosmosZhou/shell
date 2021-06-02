@@ -8,23 +8,6 @@ ifneq ($(shell echo $(whoami) | awk '{if(length >= 7) {print length;}}'), $(null
 	whoami_grep :=$(whoami_grep)+
 endif
 
-git_version =2.7.0
-git:
-	@echo "installing git"
-ifeq ($(shell which git), $(nullstring))
-	yum -y install curl-devel expat-devel gettext-devel openssl-devel zlib-devel gcc perl-ExtUtils-MakeMaker
-	wget https://github.com/git/git/archive/v$(git_version).zip
-	unzip v$(git_version).zip
-	cd git-$(git_version);\
-	make prefix=$(pwd)/git all;\
-	make prefix=$(pwd)/git install;\
-	cd ../
-	ln -s $(pwd)/git/bin/git /usr/bin/git
-else
-	@echo "git already installed"
-endif
-	git --version
-
 mvn_version =3.6.3
 mvn:
 ifeq ($(shell which mvn), $(nullstring))
@@ -226,14 +209,3 @@ endif
 cpu-count:
 	cat /proc/cpuinfo | grep processor | wc -l
 #	cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
-	
-redis_version =5.0.8#redis_version
-redis:
-ifeq ($(wildcard redis-$(redis_version).tar.gz), $(nullstring))
-	wget http://download.redis.io/releases/redis-$(redis_version).tar.gz
-	tar -zxf redis-$(redis_version).tar.gz
-endif
-	mv redis-$(redis_version) redis
-	cd redis && make 
-	cd redis/src && make PREFIX=$(pwd)/redis install
-	
