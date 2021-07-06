@@ -49,9 +49,9 @@ echo sed -i -E 's/#(LoadModule rewrite_module modules\/mod_rewrite.so)/\1/' $con
 sed -i -E 's/#(LoadModule rewrite_module modules\/mod_rewrite.so)/\1/' $conf
 
 
-echo "<VirtualHost *:80>" >> $conf<
-echo "    RewriteEngine on" >> $conf      
-echo "    RewriteCond %{SERVER_PORT} !^443$$" >> $conf  
+echo "<VirtualHost *:80>" >> $conf
+echo "    RewriteEngine on" >> $conf
+echo "    RewriteCond %{SERVER_PORT} !^443$$" >> $conf
 echo "    RewriteRule ^(.*)$$ https://%{SERVER_NAME}$$1 [L,R]" >> $conf
 echo "</VirtualHost>" >> $conf
 
