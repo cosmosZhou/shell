@@ -24,7 +24,7 @@ copy:
 		filename=\`echo \$${filename/\\#p\\#/\\#P\\#}\`;\\
 		cp \$$file data/\$$database/\$$filename;\\
 	done
-		
+
 stop:
 	ps -ef | grep mysql | grep -v grep | egrep -v make.+clean | grep $(whoami)		
 	ps -ef | grep mysql | grep -v grep | egrep -v make.+clean | grep $(whoami) | awk '{print \$$\$$2}'	
