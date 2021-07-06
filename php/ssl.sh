@@ -53,9 +53,10 @@ echo "<VirtualHost *:80>" >> $conf<
 echo "    RewriteEngine on" >> $conf      
 echo "    RewriteCond %{SERVER_PORT} !^443$$" >> $conf  
 echo "    RewriteRule ^(.*)$$ https://%{SERVER_NAME}$$1 [L,R]" >> $conf
-echo "    </VirtualHost>" >> $conf
+echo "</VirtualHost>" >> $conf
 
 conf=$pwd/httpd/conf/extra/httpd-ssl.conf
+echo conf = $conf
 
 echo sed -i -E "s#(DocumentRoot) \"/usr/local/httpd/htdocs\"#\1 \"$DocumentRoot\"#" $conf
 sed -i -E "s#(DocumentRoot) \".+"#\1 \"$DocumentRoot\"#" $conf
