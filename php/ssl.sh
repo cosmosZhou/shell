@@ -28,6 +28,14 @@ SSLCertificateChainFile=cert/www.axiom.top_chain.crt
 cp -r $DocumentRoot/cert /usr/local/httpd/
 conf=$pwd/httpd/conf/httpd.conf
 
+echo conf = $conf
+echo DocumentRoot = $DocumentRoot
+echo ServerName = $ServerName
+echo ServerAdmin = $ServerAdmin
+echo SSLCertificateFile = $SSLCertificateFile
+echo SSLCertificateKeyFile = $SSLCertificateKeyFile
+echo SSLCertificateChainFile = $SSLCertificateChainFile
+
 echo sed -i -E 's/#(LoadModule ssl_module modules\/mod_ssl.so)/\1/' $conf
 sed -i -E 's/#(LoadModule ssl_module modules\/mod_ssl.so)/\1/' $conf
 
