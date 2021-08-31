@@ -1,5 +1,8 @@
 nullstring :=#end of the line
 pwd =$(patsubst %/,%, $(dir $(abspath $(lastword $(MAKEFILE_LIST)))))#pwd
+pwd := $(shell dirname $(pwd))
+pwd := $(shell dirname $(pwd))
+$(info pwd = $(pwd))
 
 whoami = $(shell whoami)
 whoami_grep = $(shell echo $(whoami) | awk '{print substr($$0,1,7)}')
@@ -8,7 +11,7 @@ ifneq ($(shell echo $(whoami) | awk '{if(length >= 7) {print length;}}'), $(null
 	whoami_grep :=$(whoami_grep)+
 endif
 
-python_version =3.6.10
+python_version =3.9.6
 python:
 ifeq ($(wildcard Python-$(python_version).tgz), $(nullstring))
 	wget https://www.python.org/ftp/python/$(python_version)/Python-$(python_version).tgz
@@ -16,15 +19,20 @@ endif
 ifeq ($(wildcard Python-$(python_version)), $(nullstring))
 	tar -zxvf Python-$(python_version).tgz
 endif
+	#./configure --prefix=$(pwd)/python --enable-loadable-sqlite-extensions --enable-optimizations;
+	
 	cd Python-$(python_version);\
-	./configure --prefix=$(pwd)/python --enable-loadable-sqlite-extensions --enable-optimizations;\
+	make clean;\
+	./configure --prefix=$(pwd)/python3;\
 	make && make install;\
 	cd ../	
-	make path=$(pwd)/python/bin
 	
-	ln -s $(pwd)/python/bin/python3 $(pwd)/python/bin/python
-	-ln -s $(pwd)/python/bin/pip3 $(pwd)/python/bin/pip
+	-ln -s $(pwd)/python3/bin/python3 $(pwd)/python3/bin/python
+	-ln -s $(pwd)/python3/bin/pip3 $(pwd)/python3/bin/pip
 	
+	$(pwd)/python3/bin/pip install mysql-connector
+
+mirrors:
 	mkdir ~/.pip
 	touch ~/.pip/pip.conf
 	@echo "[global]" >> ~/.pip/pip.conf
@@ -34,7 +42,6 @@ endif
 	@echo "[install]" >> ~/.pip/pip.conf
 	@echo "trusted-host = mirrors.aliyun.com pypi.douban.com" >> ~/.pip/pip.conf
 	
-	$(pwd)/python/bin/pip install mysql-connector
 
 sqlite3:
 ifeq ($(wildcard sqlite-autoconf-3250200.tar.gz), $(nullstring))

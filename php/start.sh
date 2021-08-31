@@ -1,6 +1,7 @@
 #!/bin/bash
 # usage:
 # sh start.sh port=8000 DocumentRoot=/mnt/data/lizhi/gitlab
+# sh start.sh port=80 DocumentRoot=/home/github
   
 directory=$(dirname $0)
 

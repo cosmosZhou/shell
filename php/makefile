@@ -8,10 +8,11 @@ pwd := $(shell dirname $(pwd))
 pwd := $(shell dirname $(pwd))
 $(info pwd = $(pwd))
 
-php_version =7.4.15
+php_version =7.4.21
 openssl: php
 ifeq ($(wildcard $(pwd)/php/lib/php/extensions/*/openssl.so), $(nullstring))
 	sed -i 's/^;extension=openssl/extension=openssl/g' $(pwd)/php/etc/php.ini
+	sed -i 's/^allow_url_include = Off/allow_url_include = On/' $(pwd)/php/etc/php.ini
 	
 	cd php-$(php_version)/ext/openssl;\
     make clean; \
@@ -37,6 +38,7 @@ ifeq ($(wildcard $(pwd)/php), $(nullstring))
 	cp php-$(php_version)/php.ini-production $(pwd)/php/etc/php.ini
 	
 	cd php-$(php_version);\
+	make clean; \
     ./configure --prefix=$(pwd)/php \
                 --with-zlib \
                 --with-curl \
@@ -134,6 +136,7 @@ endif
 #skip compiling
 ifeq ($(wildcard $(pwd)/httpd), $(nullstring))
 	cd httpd-$(httpd_version);\
+	make clean; \
     ./configure --prefix=$(pwd)/httpd \
                 --enable-so \
                 --enable-ssl \
