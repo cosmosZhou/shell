@@ -6,7 +6,7 @@ def sleep(seconds):
     
 def mysql_connector():
 	import mysql.connector
-	mydb = mysql.connector.connect(host='localhost', user='root', password='$(mysql_password)', port=$(mysql_port))
+	mydb = mysql.connector.connect(host='localhost', user='root', password='$(mysql_password)', port='$(mysql_port)')
 	return mydb, mydb.cursor()
 
 def test():

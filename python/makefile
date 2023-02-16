@@ -14,23 +14,24 @@ endif
 python_version =3.9.6
 python:
 ifeq ($(wildcard Python-$(python_version).tgz), $(nullstring))
-	wget https://www.python.org/ftp/python/$(python_version)/Python-$(python_version).tgz
+	wget --no-check-certificate https://www.python.org/ftp/python/$(python_version)/Python-$(python_version).tgz
 endif
 ifeq ($(wildcard Python-$(python_version)), $(nullstring))
 	tar -zxvf Python-$(python_version).tgz
 endif
 	#./configure --prefix=$(pwd)/python --enable-loadable-sqlite-extensions --enable-optimizations;
-	
-	cd Python-$(python_version);\
+	#yum install -y libffi-devel;
+	cd Python-$(python_version) --enable-loadable-sqlite-extensions;\
 	make clean;\
-	./configure --prefix=$(pwd)/python3;\
+	./configure --prefix=$(pwd)/python;\
 	make && make install;\
 	cd ../	
 	
-	-ln -s $(pwd)/python3/bin/python3 $(pwd)/python3/bin/python
-	-ln -s $(pwd)/python3/bin/pip3 $(pwd)/python3/bin/pip
+	-ln -s $(pwd)/python/bin/python3 $(pwd)/python/bin/python
+	-ln -s $(pwd)/python/bin/pip3 $(pwd)/python/bin/pip
 	
-	$(pwd)/python3/bin/pip install mysql-connector
+	bash ../bash_profile.sh PATH=~/python/bin
+	$(pwd)/python/bin/pip install mysql-connector
 
 mirrors:
 	mkdir ~/.pip
@@ -55,7 +56,6 @@ endif
 	make && make install;\
 	cd ../
 	
-	sh bash_profile.sh LD_LIBRARY_PATH=$(pwd)/sqlite3/lib
+	bash ../bash_profile.sh LD_LIBRARY_PATH=$(pwd)/sqlite3/lib
 	#find / -name _sqlite*.so
 	#cp /usr/lib/python3.6/lib-dynload/_sqlite3.cpython-36m-x86_64-linux-gnu.so $(pwd)/python3/lib/python3.6/lib-dynload/_sqlite3.so
-	

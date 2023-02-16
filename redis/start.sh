@@ -52,5 +52,6 @@ if [ -n "$stop" ]; then
     cd $pwd/redis/bin && ./redis-cli shutdown
 else
     echo cd $pwd/redis && ./bin/redis-server redis.conf
+    #cd redis && ./bin/redis-server redis.conf
     cd $pwd/redis && ./bin/redis-server redis.conf
 fi

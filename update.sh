@@ -7,7 +7,7 @@ echo conf = $conf
 echo regex = $regex
 echo text = $text
 
-index=`grep -n "$regex" $conf | cut -f1 -d:`
+index=`grep -n "$regex" $conf | cut -f1 -d: | head -n 1`
 
 echo index = $index
 

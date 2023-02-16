@@ -72,3 +72,5 @@ kill -9 `ps aux |grep httpd/bin/httpd | grep -v grep | awk '{print $2}'` || true
 
 echo $pwd/httpd/bin/apachectl -k start
 $pwd/httpd/bin/apachectl -k start
+
+#~/httpd/bin/apachectl -k restart

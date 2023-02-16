@@ -19,7 +19,7 @@ for assignment in `echo $1 | awk '{for(i=1;i<=NF;i++){if ($i ~ /=/)print $i;}}'`
 	symbol=`echo "$assignment" | awk -F'=' '{print $1}'`;
 	symbol=`echo ${symbol^^}`;
 	expression=`echo "$assignment" | awk -F'=' '{print $2}'`;
-	if [[ "$symbol" == "PATH" || "$symbol" == "LD_LIBRARY_PATH" ]];then 
+	if [[ "$symbol" == "PATH" || "$symbol" == "LD_LIBRARY_PATH" || "$symbol" == "PKG_CONFIG_PATH" || "$symbol" == "CPLUS_INCLUDE_PATH" || "$symbol" == "C_INCLUDE_PATH" || "$symbol" == "LIBRARY_PATH" || "$symbol" == "LD_RUN_PATH" ]];then 
 		expression=$expression":$"$symbol;
 	fi;
 	echo $symbol=$expression;
