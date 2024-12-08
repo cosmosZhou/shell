@@ -4,7 +4,7 @@ pwd := $(shell cd ~; pwd)
 $(info pwd = ${pwd})
 
 php_version=8.1.21
-php: httpd ${pwd}/php
+php: httpd mysql ${pwd}/php
 	echo "${php_version} is installed at ${pwd}/php"
 
 php-${php_version}.tar.gz:
