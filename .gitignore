@@ -1,1 +1,6 @@
-/.pydevproject
+*.tar.gz
+*.tar.xz
+*.tgz
+*.rst
+*.m4
+*.log
