@@ -11,7 +11,11 @@ ifneq ($(shell echo $(whoami) | awk '{if(length >= 7) {print length;}}'), $(null
 	whoami_grep :=$(whoami_grep)+
 endif
 
+<<<<<<< HEAD
 python_version =3.10.9
+=======
+python_version =3.9.6
+>>>>>>> d338c640c33e5d5f95786fcfa4ec98ca7f098d64
 python:
 ifeq ($(wildcard Python-$(python_version).tgz), $(nullstring))
 	wget --no-check-certificate https://www.python.org/ftp/python/$(python_version)/Python-$(python_version).tgz
@@ -20,6 +24,7 @@ ifeq ($(wildcard Python-$(python_version)), $(nullstring))
 	tar -zxvf Python-$(python_version).tgz
 endif
 	#./configure --prefix=$(pwd)/python --enable-loadable-sqlite-extensions --enable-optimizations;
+<<<<<<< HEAD
 	#for centos:
 	#yum install -y zlib-devel
 	#yum install -y openssl-devel
@@ -29,6 +34,9 @@ endif
 	#sudo apt-get install openssl
 	#sudo apt-get install libssl-dev
 	#sudo apt-get install libffi-dev
+=======
+	#yum install -y libffi-devel;
+>>>>>>> d338c640c33e5d5f95786fcfa4ec98ca7f098d64
 	cd Python-$(python_version) --enable-loadable-sqlite-extensions;\
 	make clean;\
 	./configure --prefix=$(pwd)/python;\
