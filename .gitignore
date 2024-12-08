@@ -1,11 +1,6 @@
-<<<<<<< HEAD
 *.tar.gz
 *.tar.xz
 *.tgz
 *.rst
 *.m4
 *.log
-=======
-/.pydevproject
-*.tar.gz
->>>>>>> d338c640c33e5d5f95786fcfa4ec98ca7f098d64

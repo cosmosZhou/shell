@@ -115,3 +115,7 @@ endif
 
 
 # https://blog.csdn.net/Bessenn/article/details/120684864
+# upgrade to gcc7 in centos system: 
+# yum -y install centos-release-scl 
+# yum -y install devtoolset-7-gcc devtoolset-7-gcc-c++ devtoolset-7-binutils
+# echo "source /opt/rh/devtoolset-7/enable" >>/etc/profile.d/gcc7.sh 

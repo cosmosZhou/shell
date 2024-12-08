@@ -94,8 +94,4 @@ sed -i -E 's/#(SSLCertificateChainFile)/\1/' $conf
 echo sed -i -E "s#(^SSLCertificateChainFile) \".+\"#\1 \"$SSLCertificateChainFile\"#" $conf
 sed -i -E "s#(^SSLCertificateChainFile) \".+\"#\1 \"$SSLCertificateChainFile\"#" $conf
 
-<<<<<<< HEAD
 $pwd/httpd/bin/apachectl -k restart
-=======
-$pwd/httpd/bin/apachectl -k restart
->>>>>>> d338c640c33e5d5f95786fcfa4ec98ca7f098d64

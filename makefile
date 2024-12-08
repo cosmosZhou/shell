@@ -56,9 +56,5 @@ jdk:
 
 cpu-count:
 	cat /proc/cpuinfo | grep processor | wc -l
-<<<<<<< HEAD
 #	cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
 #   sudo mount /dev/md0  /mnt/data0
-=======
-#	cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l
->>>>>>> d338c640c33e5d5f95786fcfa4ec98ca7f098d64
