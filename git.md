@@ -7,8 +7,8 @@ conda install git
 ## git clone
 
 git使用设置
-git config --global user.email "chenlizhibeing@126.com"  
-git config --global user.name "Cosmos"  
+git config --global user.email "yourName@126.com"  
+git config --global user.name "yourNickName"  
 使用get clone获取源代码：  
 cd /root/solution  
 git clone https://cosmosZhou:######qrup@github.com/cosmosZhou/Python.git  
@@ -69,7 +69,7 @@ git reset --hard origin/master
 
 ## 切换分支
 拉取Rel.0.0.2分支的代码： 
-git clone -b Rel.0.0.2 http://git.patsnap.com/zhoulizhi/pytext.git 
+git clone -b Rel.0.0.2 http://git.company.com/yourName/pytext.git 
 
 查看所有分支:  
 git branch -a   
@@ -105,7 +105,7 @@ git push --set-upstream origin release.1.0.11
 ## vscode配置
 1, Settings (Ctrl+,)  
 2, Search setttings: git.path  
-3, Edit: "git.path": "/home/lizhi/miniconda3/bin/git"  
+3, Edit: "git.path": "/home/yourName/miniconda3/bin/git"  
 
 # github加速访问
 https://ping.chinaz.com/github.com  

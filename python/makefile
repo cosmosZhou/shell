@@ -47,9 +47,9 @@ mirrors:
 	@echo "[global]" >> ~/.pip/pip.conf
 	@echo "timeout = 60" >> ~/.pip/pip.conf
 	@echo "index-url = http://mirrors.aliyun.com/pypi/simple/" >> ~/.pip/pip.conf
-	@echo "extra-index-url= http://pypi.douban.com/simple/ http://pypi.nexus.zhihuiya.com/repository/pypi-group/simple" >> ~/.pip/pip.conf
+	@echo "extra-index-url= http://pypi.douban.com/simple/ http://pypi.nexus.company.com/repository/pypi-group/simple" >> ~/.pip/pip.conf
 	@echo "[install]" >> ~/.pip/pip.conf
-	@echo "trusted-host = mirrors.aliyun.com pypi.douban.com pypi.nexus.zhihuiya.com" >> ~/.pip/pip.conf
+	@echo "trusted-host = mirrors.aliyun.com pypi.douban.com pypi.nexus.company.com" >> ~/.pip/pip.conf
 	
 
 sqlite3:

@@ -1,4 +1,4 @@
-#usage sh update.sh /user/local "^DocumentRoot \".\+\"" "<Directory \"/mnt/data/lizhi/gitlab\">"
+#usage sh update.sh /user/local "^DocumentRoot \".\+\"" "<Directory \"/mnt/data/yourName/gitlab\">"
 conf=$1
 regex=$2
 text=$3

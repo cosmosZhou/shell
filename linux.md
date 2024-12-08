@@ -371,14 +371,14 @@ grep -B 2 "^”接地" /mnt/nas/bert_poc_data/H/desc_h_background_data.txt | mor
 
 ## SFTP数据传输
 文件传输指令（从本地到远程）：  
-scp gitlab/assets/example.txt lizhi@192.168.3.132:gitlab/assets  
+scp gitlab/assets/example.txt yourName@192.168.3.132:gitlab/assets  
 文件夹传输指令（从本地到远程）：  
-scp -r gitlab/assets/folder lizhi@192.168.3.132:gitlab/assets  
+scp -r gitlab/assets/folder yourName@192.168.3.132:gitlab/assets  
 
 文件传输指令（从远程到本地）：  
-scp lizhi@192.168.3.132:gitlab/assets/example.txt gitlab/assets   
+scp yourName@192.168.3.132:gitlab/assets/example.txt gitlab/assets   
 文件夹传输指令（从远程到本地）：  
-scp -r lizhi@192.168.3.132:gitlab/assets/folder gitlab/assets  
+scp -r yourName@192.168.3.132:gitlab/assets/folder gitlab/assets  
 
 如果出现SFTP不能连接问题：  
 vi /etc/ssh/sshd_config   

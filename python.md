@@ -29,7 +29,7 @@ cd Python-3.10.9
 ./configure --prefix=/usr/local/python3
 
 如果是个人用户：  
-./configure --prefix=/home/zhoulizhi/python3 --enable-loadable-sqlite-extensions
+./configure --prefix=/home/yourName/python3 --enable-loadable-sqlite-extensions
 
 make && make install  
 建立必要的软连接：  
@@ -317,15 +317,15 @@ https://www.lfd.uci.edu/~gohlke/pythonlibs
 wget https://www.sqlite.org/2018/sqlite-autoconf-3250200.tar.gz  
 tar -zxvf sqlite-autoconf-3250200.tar.gz  
 cd sqlite-autoconf-3250200  
-./configure --prefix=/home/zhoulizhi/sqlite3  
+./configure --prefix=/home/yourName/sqlite3  
 make && make install  
 vim ~/.bash_profile  
-把/home/zhoulizhi/sqlite3/lib添加到LD_LIBRARY_PATH  
-export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:/home/zhoulizhi/bin:/home/zhoulizhi/sqlite3/lib:$LD_LIBRARY_PATH  
+把/home/yourName/sqlite3/lib添加到LD_LIBRARY_PATH  
+export LD_LIBRARY_PATH=/usr/local/cuda-10.1/lib64:/home/yourName/bin:/home/yourName/sqlite3/lib:$LD_LIBRARY_PATH  
 source ~/.bash_profile  
 find / -name _sqlite*.so  
 Goto section 3.1 to recompile and install python!  
-cp /usr/lib/python3.6/lib-dynload/_sqlite3.cpython-36m-x86_64-linux-gnu.so /home/zhoulizhi/python3/lib/python3.6/lib-dynload/_sqlite3.so  
+cp /usr/lib/python3.6/lib-dynload/_sqlite3.cpython-36m-x86_64-linux-gnu.so /home/yourName/python3/lib/python3.6/lib-dynload/_sqlite3.so  
 
 when upgrating python3.6 to python3.9:  
 cp ./python/lib/python3.6/lib-dynload/_sqlite3.so ./python3/lib/python3.9/lib-dynload/_sqlite3.so  

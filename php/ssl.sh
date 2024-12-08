@@ -20,7 +20,7 @@ echo pwd = $pwd
 
 DocumentRoot=/home/github
 ServerName=www.axiom.top
-ServerAdmin=chenlizhibeing@126.com
+ServerAdmin=myName@126.com
 SSLCertificateFile=cert/www.axiom.top_public.crt
 SSLCertificateKeyFile=cert/www.axiom.top.key
 SSLCertificateChainFile=cert/www.axiom.top_chain.crt

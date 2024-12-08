@@ -205,7 +205,7 @@ export MAVEN_HOME=~/maven
 export PATH=$MAVEN_HOME/bin:~/bin:/usr/local/cuda-10.1/bin:$PATH  
 source ~/.bash_profile  
 
-echo $MAVEN_HOME #this will output “/home/zhoulizhi/maven”  
+echo $MAVEN_HOME #this will output “/home/yourName/maven”  
 mvn --version  
 
 Note: localRepository = ~/.m2/repository
