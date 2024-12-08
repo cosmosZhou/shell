@@ -12,11 +12,11 @@ if [ "$directory" != "." ]; then
     exit
 fi
 
-folder=$(dirname $(readlink -f $0))  
-if [ -z "$pwd" ]; then	  
-	pwd=$(dirname $(dirname $(dirname $(readlink -f $0))))
-fi
-
+# folder=$(dirname $(readlink -f $0))  
+# if [ -z "$pwd" ]; then	  
+	# pwd=$(dirname $(dirname $(dirname $(readlink -f $0))))
+# fi
+pwd=$HOME
 echo pwd = $pwd    
 
 for arg in $*; do
